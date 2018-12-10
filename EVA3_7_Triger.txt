@@ -1,0 +1,247 @@
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+MySQL JS> \sql
+Switching to SQL mode... Commands end with ;
+
+MySQL SQL> \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 10
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+MySQL [localhost ssl] SQL> show tables;
+ERROR: 1046 (3D000): No database selected
+
+MySQL [localhost ssl] SQL> show databases;
++--------------------+
+| Database           |
++--------------------+
+| evaluacion_1       |
+| evaluacion_2       |
+| evaluacion_3       |
+| hospital           |
+| information_schema |
+| mysql              |
+| northwind          |
+| performance_schema |
+| sys                |
+| tecnologico        |
++--------------------+
+10 rows in set (0.0050 sec)
+
+MySQL [localhost ssl] SQL> \use evaluacion_3
+Default schema set to `evaluacion_3`.
+Fetching table and column names from `evaluacion_3` for auto-completion... Press
+ ^C to stop.
+
+MySQL [localhost ssl/evaluacion_3] SQL> show tables;
++------------------------+
+| Tables_in_evaluacion_3 |
++------------------------+
+| temp                   |
++------------------------+
+1 row in set (0.0059 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> create table empleado(
+                                     -> id int primary key auto_increment,
+                                     -> nombre varchar(50),
+                                     -> apellido varchar(50),
+                                     -> fecha date,
+                                     -> salario int,
+                                     -> RFC varchar(13));
+Query OK, 0 rows affected (2.9038 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> desc empleados;
+ERROR: 1146 (42S02): Table 'evaluacion_3.empleados' doesn't exist
+
+MySQL [localhost ssl/evaluacion_3] SQL> desc empleado;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre   | varchar(50) | YES  |     | NULL    |                |
+| apellido | varchar(50) | YES  |     | NULL    |                |
+| fecha    | date        | YES  |     | NULL    |                |
+| salario  | int(11)     | YES  |     | NULL    |                |
+| RFC      | varchar(13) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.0261 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> alter table empleado add apellido_mat va
+rchar(50) after apellido;
+Query OK, 0 rows affected (2.4692 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+MySQL [localhost ssl/evaluacion_3] SQL> desc empleado;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| id           | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(50) | YES  |     | NULL    |                |
+| apellido     | varchar(50) | YES  |     | NULL    |                |
+| apellido_mat | varchar(50) | YES  |     | NULL    |                |
+| fecha        | date        | YES  |     | NULL    |                |
+| salario      | int(11)     | YES  |     | NULL    |                |
+| RFC          | varchar(13) | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.0077 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> insert into empleado(nombre,apellido,ape
+llido_mat, fecha, salario)
+                                     -> values('Juan','Perez','Jolote','1980-11-
+12',1000);
+Query OK, 1 row affected (0.3428 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from empleados;
+ERROR: 1146 (42S02): Table 'evaluacion_3.empleados' doesn't exist
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from empleado;
++----+--------+----------+--------------+------------+---------+--------------+
+| id | nombre | apellido | apellido_mat | fecha      | salario | RFC          |
++----+--------+----------+--------------+------------+---------+--------------+
+|  1 | Juan   | Perez    | Jolote       | 1980-11-12 |    1000 | PEJJ19801112 |
++----+--------+----------+--------------+------------+---------+--------------+
+1 row in set (0.0018 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> insert into empleado(nombre,apellido,ape
+llido_mat, fecha, salario) values('Juan','Perez','Jolote','1980-11-12',1000);
+ERROR: 1644 (45000): PAGA MAS TACAÃ‘O
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from empleado;
++----+--------+----------+--------------+------------+---------+--------------+
+| id | nombre | apellido | apellido_mat | fecha      | salario | RFC          |
++----+--------+----------+--------------+------------+---------+--------------+
+|  1 | Juan   | Perez    | Jolote       | 1980-11-12 |    1000 | PEJJ19801112 |
++----+--------+----------+--------------+------------+---------+--------------+
+1 row in set (0.0017 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> insert into empleado(nombre,apellido,ape
+llido_mat, fecha, salario) values('Juan','Perez','Jolote','1980-11-12',15000);
+Query OK, 1 row affected (0.1913 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from empleado;
++----+--------+----------+--------------+------------+---------+--------------+
+| id | nombre | apellido | apellido_mat | fecha      | salario | RFC          |
++----+--------+----------+--------------+------------+---------+--------------+
+|  1 | Juan   | Perez    | Jolote       | 1980-11-12 |    1000 | PEJJ19801112 |
+|  2 | Juan   | Perez    | Jolote       | 1980-11-12 |   15000 | PEJJ19801112 |
++----+--------+----------+--------------+------------+---------+--------------+
+2 rows in set (0.0023 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL>
+
+_____________________________________________
+
+MSQL Workbench
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `empleado_BEFORE_INSERT` BEFORE INSERT ON `empleado` FOR EACH ROW 
+BEGIN
+	
+if New.salario < 10000 then 
+      
+signal sqlstate '45000' #numero de generacion de errores propios Excepcion 
+      
+set message_text = 'PAGA MAS TACAÑO';
+    
+end if;
+    
+    
+
+set New.rfc = Genera_rfc(New.nombre, New.apellido, New.apellido_mat, New.fecha);
+
+END
+_______________________________-
+
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `empleado_AFTER_INSERT` AFTER INSERT ON `empleado` FOR EACH ROW 
+BEGIN
+   
+declare total_sal int;
+   
+select sum(salario) into total_sal
+   
+from empleado;
+   
+update salarios 
+   
+set total_salarios = total_sal;
+
+END
+
+_________________________________________
+
+MySQL [localhost ssl/evaluacion_3] SQL> create table salarios(
+                                     -> total_salarios int );
+Query OK, 0 rows affected (0.9446 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> insert into salarios values (0
+                                     -> );
+Query OK, 1 row affected (0.1764 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from salarios ;
++----------------+
+| total_salarios |
++----------------+
+|              0 |
++----------------+
+1 row in set (0.0027 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> show tables;
++------------------------+
+| Tables_in_evaluacion_3 |
++------------------------+
+| empleado               |
+| salarios               |
+| temp                   |
++------------------------+
+3 rows in set (0.0066 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> desc salarios;
++----------------+---------+------+-----+---------+-------+
+| Field          | Type    | Null | Key | Default | Extra |
++----------------+---------+------+-----+---------+-------+
+| total_salarios | int(11) | YES  |     | NULL    |       |
++----------------+---------+------+-----+---------+-------+
+1 row in set (0.0067 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> desc empleado;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| id           | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(50) | YES  |     | NULL    |                |
+| apellido     | varchar(50) | YES  |     | NULL    |                |
+| apellido_mat | varchar(50) | YES  |     | NULL    |                |
+| fecha        | date        | YES  |     | NULL    |                |
+| salario      | int(11)     | YES  |     | NULL    |                |
+| RFC          | varchar(13) | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.0077 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> insert into empleado(nombre,apellido,ape
+llido_mat, fecha, salario) values ('Juan','Perez','Jolote','1980-11-12',15000);
+Query OK, 1 row affected (0.1829 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from salarios;
++----------------+
+| total_salarios |
++----------------+
+|          31000 |
++----------------+
+1 row in set (0.0018 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL>

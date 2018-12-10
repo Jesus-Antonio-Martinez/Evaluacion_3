@@ -1,0 +1,412 @@
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+MySQL JS> \sql
+Switching to SQL mode... Commands end with ;
+
+MySQL SQL> \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+MySQL [localhost ssl] SQL> show databases;
++--------------------+
+| Database           |
++--------------------+
+| evaluacion_1       |
+| evaluacion_2       |
+| evaluacion_3       |
+| information_schema |
+| mysql              |
+| northwind          |
+| performance_schema |
+| sys                |
+| tecnologico        |
++--------------------+
+9 rows in set (0.0043 sec)
+
+MySQL [localhost ssl] SQL> \use northwind;
+MySQL Error 1049 (42000): ClassicSession.runSql: Unknown database 'northwind;'
+
+MySQL [localhost ssl] SQL> \use northwind
+Default schema set to `northwind`.
+Fetching table and column names from `northwind` for auto-completion... Press ^C
+ to stop.
+
+MySQL [localhost ssl/northwind] SQL> select obten_rfc(firstname,lastname,'',bri;
+
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near '' at
+ line 1
+
+MySQL [localhost ssl/northwind] SQL> show tables;
++----------------------+
+| Tables_in_northwind  |
++----------------------+
+| account              |
+| categories           |
+| customercustomerdemo |
+| customerdemographics |
+| customers            |
+| empleados            |
+| employees            |
+| employeeterritories  |
+| lista_empleados      |
+| lista_empleados_a    |
+| nombre_cliente       |
+| orderdetails         |
+| orders               |
+| pagos_empleados      |
+| personas             |
+| products             |
+| prueba2              |
+| region               |
+| rfc_gringos          |
+| shippers             |
+| suppliers            |
+| temp_customer        |
+| territories          |
+| ventas_producto      |
++----------------------+
+24 rows in set (0.0067 sec)
+
+MySQL [localhost ssl/northwind] SQL> desc employees;
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| EmployeeID      | int(11)      | NO   | PRI | NULL    | auto_increment |
+| LastName        | varchar(20)  | NO   | MUL | NULL    |                |
+| FirstName       | varchar(10)  | NO   |     | NULL    |                |
+| Title           | varchar(30)  | YES  |     | NULL    |                |
+| TitleOfCourtesy | varchar(25)  | YES  |     | NULL    |                |
+| BirthDate       | datetime     | YES  |     | NULL    |                |
+| HireDate        | datetime     | YES  |     | NULL    |                |
+| Address         | varchar(60)  | YES  |     | NULL    |                |
+| City            | varchar(15)  | YES  |     | NULL    |                |
+| Region          | varchar(15)  | YES  |     | NULL    |                |
+| PostalCode      | varchar(10)  | YES  | MUL | NULL    |                |
+| Country         | varchar(15)  | YES  |     | NULL    |                |
+| HomePhone       | varchar(24)  | YES  |     | NULL    |                |
+| Extension       | varchar(4)   | YES  |     | NULL    |                |
+| Notes           | mediumtext   | NO   |     | NULL    |                |
+| ReportsTo       | int(11)      | YES  | MUL | NULL    |                |
+| PhotoPath       | varchar(255) | YES  |     | NULL    |                |
+| Salary          | float        | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+18 rows in set (0.0220 sec)
+
+MySQL [localhost ssl/northwind] SQL> create table copia_empleados as select * fr
+om employees;
+Query OK, 9 rows affected (1.1142 sec)
+
+Records: 9  Duplicates: 0  Warnings: 0
+
+MySQL [localhost ssl/northwind] SQL> desc copia_empleados;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| EmployeeID      | int(11)      | NO   |     | 0       |       |
+| LastName        | varchar(20)  | NO   |     | NULL    |       |
+| FirstName       | varchar(10)  | NO   |     | NULL    |       |
+| Title           | varchar(30)  | YES  |     | NULL    |       |
+| TitleOfCourtesy | varchar(25)  | YES  |     | NULL    |       |
+| BirthDate       | datetime     | YES  |     | NULL    |       |
+| HireDate        | datetime     | YES  |     | NULL    |       |
+| Address         | varchar(60)  | YES  |     | NULL    |       |
+| City            | varchar(15)  | YES  |     | NULL    |       |
+| Region          | varchar(15)  | YES  |     | NULL    |       |
+| PostalCode      | varchar(10)  | YES  |     | NULL    |       |
+| Country         | varchar(15)  | YES  |     | NULL    |       |
+| HomePhone       | varchar(24)  | YES  |     | NULL    |       |
+| Extension       | varchar(4)   | YES  |     | NULL    |       |
+| Notes           | mediumtext   | NO   |     | NULL    |       |
+| ReportsTo       | int(11)      | YES  |     | NULL    |       |
+| PhotoPath       | varchar(255) | YES  |     | NULL    |       |
+| Salary          | float        | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+18 rows in set (0.0104 sec)
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+MySQL JS> \sql
+Switching to SQL mode... Commands end with ;
+
+MySQL SQL> \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+MySQL [localhost ssl] SQL> show databases;
++--------------------+
+| Database           |
++--------------------+
+| evaluacion_1       |
+| evaluacion_2       |
+| evaluacion_3       |
+| information_schema |
+| mysql              |
+| northwind          |
+| performance_schema |
+| sys                |
+| tecnologico        |
++--------------------+
+9 rows in set (0.0043 sec)
+
+MySQL [localhost ssl] SQL> \use northwind;
+MySQL Error 1049 (42000): ClassicSession.runSql: Unknown database 'northwind;'
+
+MySQL [localhost ssl] SQL> \use northwind
+Default schema set to `northwind`.
+Fetching table and column names from `northwind` for auto-completion... Press ^C
+ to stop.
+
+MySQL [localhost ssl/northwind] SQL> select obten_rfc(firstname,lastname,'',bri;
+
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near '' at
+ line 1
+
+MySQL [localhost ssl/northwind] SQL> show tables;
++----------------------+
+| Tables_in_northwind  |
++----------------------+
+| account              |
+| categories           |
+| customercustomerdemo |
+| customerdemographics |
+| customers            |
+| empleados            |
+| employees            |
+| employeeterritories  |
+| lista_empleados      |
+| lista_empleados_a    |
+| nombre_cliente       |
+| orderdetails         |
+| orders               |
+| pagos_empleados      |
+| personas             |
+| products             |
+| prueba2              |
+| region               |
+| rfc_gringos          |
+| shippers             |
+| suppliers            |
+| temp_customer        |
+| territories          |
+| ventas_producto      |
++----------------------+
+24 rows in set (0.0067 sec)
+
+MySQL [localhost ssl/northwind] SQL> desc employees;
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| EmployeeID      | int(11)      | NO   | PRI | NULL    | auto_increment |
+| LastName        | varchar(20)  | NO   | MUL | NULL    |                |
+| FirstName       | varchar(10)  | NO   |     | NULL    |                |
+| Title           | varchar(30)  | YES  |     | NULL    |                |
+| TitleOfCourtesy | varchar(25)  | YES  |     | NULL    |                |
+| BirthDate       | datetime     | YES  |     | NULL    |                |
+| HireDate        | datetime     | YES  |     | NULL    |                |
+| Address         | varchar(60)  | YES  |     | NULL    |                |
+| City            | varchar(15)  | YES  |     | NULL    |                |
+| Region          | varchar(15)  | YES  |     | NULL    |                |
+| PostalCode      | varchar(10)  | YES  | MUL | NULL    |                |
+| Country         | varchar(15)  | YES  |     | NULL    |                |
+| HomePhone       | varchar(24)  | YES  |     | NULL    |                |
+| Extension       | varchar(4)   | YES  |     | NULL    |                |
+| Notes           | mediumtext   | NO   |     | NULL    |                |
+| ReportsTo       | int(11)      | YES  | MUL | NULL    |                |
+| PhotoPath       | varchar(255) | YES  |     | NULL    |                |
+| Salary          | float        | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+18 rows in set (0.0220 sec)
+
+MySQL [localhost ssl/northwind] SQL> create table copia_empleados as select * fr
+om employees;
+Query OK, 9 rows affected (1.1142 sec)
+
+Records: 9  Duplicates: 0  Warnings: 0
+
+MySQL [localhost ssl/northwind] SQL> desc copia_empleados;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| EmployeeID      | int(11)      | NO   |     | 0       |       |
+| LastName        | varchar(20)  | NO   |     | NULL    |       |
+| FirstName       | varchar(10)  | NO   |     | NULL    |       |
+| Title           | varchar(30)  | YES  |     | NULL    |       |
+| TitleOfCourtesy | varchar(25)  | YES  |     | NULL    |       |
+| BirthDate       | datetime     | YES  |     | NULL    |       |
+| HireDate        | datetime     | YES  |     | NULL    |       |
+| Address         | varchar(60)  | YES  |     | NULL    |       |
+| City            | varchar(15)  | YES  |     | NULL    |       |
+| Region          | varchar(15)  | YES  |     | NULL    |       |
+| PostalCode      | varchar(10)  | YES  |     | NULL    |       |
+| Country         | varchar(15)  | YES  |     | NULL    |       |
+| HomePhone       | varchar(24)  | YES  |     | NULL    |       |
+| Extension       | varchar(4)   | YES  |     | NULL    |       |
+| Notes           | mediumtext   | NO   |     | NULL    |       |
+| ReportsTo       | int(11)      | YES  |     | NULL    |       |
+| PhotoPath       | varchar(255) | YES  |     | NULL    |       |
+| Salary          | float        | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+18 rows in set (0.0104 sec)
+
+MySQL [localhost ssl/northwind] SQL> alter table copia_empleados add column rfc
+varchar (15);
+Query OK, 0 rows affected (0.6727 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+MySQL [localhost ssl/northwind] SQL> desc copia_empleados;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| EmployeeID      | int(11)      | NO   |     | 0       |       |
+| LastName        | varchar(20)  | NO   |     | NULL    |       |
+| FirstName       | varchar(10)  | NO   |     | NULL    |       |
+| Title           | varchar(30)  | YES  |     | NULL    |       |
+| TitleOfCourtesy | varchar(25)  | YES  |     | NULL    |       |
+| BirthDate       | datetime     | YES  |     | NULL    |       |
+| HireDate        | datetime     | YES  |     | NULL    |       |
+| Address         | varchar(60)  | YES  |     | NULL    |       |
+| City            | varchar(15)  | YES  |     | NULL    |       |
+| Region          | varchar(15)  | YES  |     | NULL    |       |
+| PostalCode      | varchar(10)  | YES  |     | NULL    |       |
+| Country         | varchar(15)  | YES  |     | NULL    |       |
+| HomePhone       | varchar(24)  | YES  |     | NULL    |       |
+| Extension       | varchar(4)   | YES  |     | NULL    |       |
+| Notes           | mediumtext   | NO   |     | NULL    |       |
+| ReportsTo       | int(11)      | YES  |     | NULL    |       |
+| PhotoPath       | varchar(255) | YES  |     | NULL    |       |
+| Salary          | float        | YES  |     | NULL    |       |
+| rfc             | varchar(15)  | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+19 rows in set (0.0083 sec)
+
+MySQL [localhost ssl/northwind] SQL> select genera_rfc(firstname,lastname,'',bir
+thdate) from employees;
++---------------------------------------------+
+| genera_rfc(firstname,lastname,'',birthdate) |
++---------------------------------------------+
+| DAXN19481208                                |
+| FUXA19520219                                |
+| LEXJ19630830                                |
+| PEXM19370919                                |
+| BUXS19550304                                |
+| SUXM19630702                                |
+| KIXR19600529                                |
+| CAXL19580109                                |
+| DOXA19660127                                |
++---------------------------------------------+
+9 rows in set (0.1148 sec)
+
+MySQL [localhost ssl/northwind] SQL>
+
+
+
+
+------------
+ Workbench 
+CREATE DEFINER=`root`@`localhost` FUNCTION `rfc_cursor`() RETURNS int(11)
+BEGIN
+
+	
+	declare conteo int; 
+    
+	declare employee_id text;
+
+#VARIABLE BOOLEANA DE CONTROL 
+	
+	declare fin_cursor int default false; 
+# cuando lleguemos al final, se pondra verdad 
+#VARIABLE CURSOR (SELECT) 
+     
+	declare nom text; 
+     
+	declare ap text; 
+     
+	declare fecha date;  
+     
+	declare rfc1 text; 
+
+
+	
+	declare cursor_employee cursor for select employyeid,firstname, lastname, birthdate from employees;  
+
+#MANEJADOR (HANDLER) PARA LA VARIABLE BOOLEANA 
+    
+	declare continue handler for not found 
+       set fin_cursor = true; 
+    
+	   
+	  set conteo = 0; 
+	
+    
+#usar el cursor 
+    
+	  open cursor_clientes; 
+    
+#usamos un cliclo para recorrerlo 
+    
+	ciclo_cursor : loop
+    
+# El fetchequivale a iterate 
+     
+	fetch cursor_clientes into employeed_id,nom, ap, fecha;
+     
+# al legar al final, se reproduce la excepcion 
+     # not found, cambiamos la variable a true
+     
+     
+if fin_cursor then 
+        
+	leave ciclo_cursor; 
+      
+else 
+          
+	set rfc1 = genera_rfc(nom, ap,'',fecha); 
+          
+update copia_empleados set rfc = rfc where employeeid = employee_id;
+          
+           
+	set conteo = conteo +1; 
+        
+        
+end if;  
+    
+end loop;
+  
+close cursor_clientes; 
+
+	
+RETURN 'no tengo idea';
+
+END

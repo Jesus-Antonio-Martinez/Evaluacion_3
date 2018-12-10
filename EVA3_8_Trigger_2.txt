@@ -1,0 +1,202 @@
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+MySQL JS> \sql
+Switching to SQL mode... Commands end with ;
+
+MySQL SQL> \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 10
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+MySQL [localhost ssl] SQL> \use evaluacion_e
+MySQL Error 1049 (42000): ClassicSession.runSql: Unknown database 'evaluacion_e'
+
+
+MySQL [localhost ssl] SQL> \use evaluacion_3
+Default schema set to `evaluacion_3`.
+Fetching table and column names from `evaluacion_3` for auto-completion... Press
+ ^C to stop.
+
+MySQL [localhost ssl/evaluacion_3] SQL> show tables;
++------------------------+
+| Tables_in_evaluacion_3 |
++------------------------+
+| empleado               |
+| salarios               |
+| temp                   |
+| ventas                 |
++------------------------+
+4 rows in set (0.0081 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> insert into ventas (totalventas,precio_n
+eto)
+                                     -> values(10000,5000);
+Query OK, 1 row affected (0.2727 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from ventas;
++----------+-------------+-------------+
+| idventas | totalventas | precio_neto |
++----------+-------------+-------------+
+|        1 |       10000 |        5000 |
++----------+-------------+-------------+
+1 row in set (0.0019 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> create table ganancias(
+                                     -> idvetas int,
+                                     -> ganancia dounle);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'doun
+le)' at line 3
+
+MySQL [localhost ssl/evaluacion_3] SQL> create table ganancias( idvetas int, gan
+ancia double);
+Query OK, 0 rows affected (0.5546 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> insert into ventas (totalventas,precio_n
+eto) values(8000,5000);
+Query OK, 1 row affected (0.0956 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from ganancias;
++---------+----------+
+| idvetas | ganancia |
++---------+----------+
+|       2 |     3000 |
++---------+----------+
+1 row in set (0.0018 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas
+                                     -> set totalventas = 700
+                                     -> where id ventas = 2;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'vent
+as = 2' at line 3
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas set totalventas = 700 wher
+e idventas = 2;
+ERROR: 1054 (42S22): Unknown column 'idventas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas set totalventas = 700 wher
+e idvetas = 2;
+ERROR: 1054 (42S22): Unknown column 'idvetas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas set totalventas = 700 wher
+e idventas = 2;
+ERROR: 1054 (42S22): Unknown column 'idventas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas set totalventa = 700 where
+ idventas = 2;
+ERROR: 1054 (42S22): Unknown column 'totalventa' in 'field list'
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas set totalventas = 700 wher
+e idventas = 2;
+ERROR: 1054 (42S22): Unknown column 'idventas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from ventas;
++----------+-------------+-------------+
+| idventas | totalventas | precio_neto |
++----------+-------------+-------------+
+|        1 |       10000 |        5000 |
+|        2 |        8000 |        5000 |
++----------+-------------+-------------+
+2 rows in set (0.0030 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas set totalventas = 700 wher
+e idventas = 2;
+ERROR: 1054 (42S22): Unknown column 'idventas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas
+                                     -> set totalventas=700
+                                     -> where idventas = 2;
+ERROR: 1054 (42S22): Unknown column 'idventas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas  set totalventas=700 where
+ idventas = 2;
+ERROR: 1054 (42S22): Unknown column 'idventas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from ventas;
++----------+-------------+-------------+
+| idventas | totalventas | precio_neto |
++----------+-------------+-------------+
+|        1 |       10000 |        5000 |
+|        2 |        8000 |        5000 |
++----------+-------------+-------------+
+2 rows in set (0.0017 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas  set totalventas=700 where
+ idventas = 2;
+ERROR: 1054 (42S22): Unknown column 'idventas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas  set totalventas=700 where
+ idvetas = 2;
+ERROR: 1054 (42S22): Unknown column 'idvetas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas  set totalventas=700 where
+ idvetas = 2;
+ERROR: 1054 (42S22): Unknown column 'idvetas' in 'where clause'
+
+MySQL [localhost ssl/evaluacion_3] SQL> update ventas  set totalventas=700 where
+ idventas = 2;
+Query OK, 1 row affected (0.1735 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MySQL [localhost ssl/evaluacion_3] SQL> select * from ventas;
++----------+-------------+-------------+
+| idventas | totalventas | precio_neto |
++----------+-------------+-------------+
+|        1 |       10000 |        5000 |
+|        2 |         700 |        5000 |
++----------+-------------+-------------+
+2 rows in set (0.0016 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL>
+
+____________________________________________---
+Workbench 
+
+*CREATE DEFINER=`root`@`localhost` TRIGGER `ventas_AFTER_INSERT` AFTER INSERT ON `ventas` FOR EACH ROW BEGIN
+   
+declare gana double;
+   
+set gana = New.totalventas - new.precio_neto;
+   
+insert into ganancias 
+   values(New.idventas, gana);
+
+END
+
+*CREATE DEFINER=`root`@`localhost` TRIGGER `ventas_AFTER_UPDATE` AFTER UPDATE ON `ventas` FOR EACH ROW BEGIN
+  
+declare gana double;
+  
+set gana = new.totalventas - new.precio_neto;
+  
+update ganancias 
+  
+set ganancia = gana 
+  
+where idvetas = old.idventas;
+ 
+
+END
+
+*CREATE DEFINER=`root`@`localhost` TRIGGER `ventas_AFTER_DELETE` AFTER DELETE ON `ventas` FOR EACH ROW BEGIN
+    
+delete from ganancias
+    
+where idventas = old.idventas;
+END

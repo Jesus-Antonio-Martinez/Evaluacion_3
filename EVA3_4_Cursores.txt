@@ -1,0 +1,110 @@
+
+
+Cursores.- tabla temporal que se crea  
+
+Workbench 
+CREATE DEFINER=`root`@`localhost` FUNCTION `Contar_clientes_cursor`() RETURNS int(11)
+BEGIN
+
+
+	declare conteo int; 
+    
+	declare customer_id text;
+
+#VARIABLE BOOLEANA DE CONTROL 
+	
+	declare fin_cursor int default false; # cuando lleguemos al final, se pondra verdad 
+#VARIABLE CURSOR (SELECT) 
+	declare cursor_clientes cursor for
+	   select customerid from customers;  
+#MANEJADOR (HANDLER) PARA LA VARIABLE BOOLEANA 
+    declare continue handler for not found 
+       set fin_cursor = true; 
+    
+	   set conteo = 0; 
+	
+    #usar el cursor 
+    open cursor_clientes; 
+    #usamos un cliclo para recorrerlo 
+    ciclo_cursor : loop
+    # El fetchequivale a iterate 
+     fetch cursor_clientes into customer_id;
+     # al legar al final, se reproduce la excepcion 
+     # not found, cambiamos la variable a true
+     if fin_cursor then 
+        leave ciclo_cursor; 
+      else 
+           set conteo = conteo +1; 
+        
+        end if;  
+    end loop;
+  close cursor_clientes; 
+
+	RETURN conteo;
+END
+
+
+
+
+Shell 
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+MySQL JS> \sql
+Switching to SQL mode... Commands end with ;
+
+MySQL SQL> \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+MySQL [localhost ssl] SQL> show databases
+                        -> ;
++--------------------+
+| Database           |
++--------------------+
+| evaluacion_1       |
+| evaluacion_2       |
+| evaluacion_3       |
+| information_schema |
+| mysql              |
+| northwind          |
+| performance_schema |
+| sys                |
+| tecnologico        |
++--------------------+
+9 rows in set (0.0036 sec)
+
+MySQL [localhost ssl] SQL> \use northwind
+Default schema set to `northwind`.
+Fetching table and column names from `northwind` for auto-completion... Press ^C
+ to stop.
+
+MySQL [localhost ssl/northwind] SQL> select contar_clientes_cursor();
++--------------------------+
+| contar_clientes_cursor() |
++--------------------------+
+|                       93 |
++--------------------------+
+1 row in set (0.2361 sec)
+
+MySQL [localhost ssl/northwind] SQL> select contar_clientes_cursor(); 
++--------------------------+
+| contar_clientes_cursor() |
++--------------------------+
+|                       93 |
++--------------------------+
+1 row in set <0.2530 sec>

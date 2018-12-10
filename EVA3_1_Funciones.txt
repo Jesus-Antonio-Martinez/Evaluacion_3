@@ -1,0 +1,127 @@
+Funciones.- Definidas por el usuario :
+Sum,Max,Min, AVg
+  regresa valores primitivos(int,double)
+
+ Procedimientos almacenados  
+   metodos amacenados en el servidor 
+   pueden regresar consultas 
+
+Triggers----> esta pegado a la tabla 
+  Metodos especiales que se ejecutan en evntos 
+  de las tablas 
+  insert, update, delete 
+
+----------------------------------------------------
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+MySQL JS> \sql
+Switching to SQL mode... Commands end with ;
+
+MySQL SQL> \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+MySQL [localhost ssl] SQL> create database evaluacion_3;
+Query OK, 1 row affected (0.2734 sec)
+
+MySQL [localhost ssl] SQL> show databases;
++--------------------+
+| Database           |
++--------------------+
+| evaluacion_1       |
+| evaluacion_2       |
+| evaluacion_3       |
+| information_schema |
+| mysql              |
+| northwind          |
+| performance_schema |
+| sys                |
+| tecnologico        |
++--------------------+
+9 rows in set (0.0046 sec)
+
+MySQL [localhost ssl] SQL> use evaluacion_3
+Default schema set to `evaluacion_3`.
+Fetching table and column names from `evaluacion_3` for auto-completion... Press
+ ^C to stop.
+
+MySQL [localhost ssl/evaluacion_3] SQL> SET GLOBAL log_bin_trust_function_creato
+rs = 1;
+Query OK, 0 rows affected (0.0019 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> select suma_numeros(1,2);
++-------------------+
+| suma_numeros(1,2) |
++-------------------+
+|                 3 |
++-------------------+
+1 row in set (0.1589 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL> select suma_numeros(1,2) as suma;
++------+
+| suma |
++------+
+|    3 |
++------+
+1 row in set (0.0030 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL>
+
+----------------------------------------------------------
+La funcion 1: 
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `suma_numeros`(num1 int, num2 int) RETURNS int(11)
+BEGIN
+ 
+  
+declare suma int;
+  
+set suma = num1 +num2;
+
+RETURN suma;
+
+END
+---------------------------------------
+Shell de la funcion 1: 
+
+MySQL  localhost:3306  SQL > \use northwind
+Default schema set to `northwind`.
+Fetching table and column names from `northwind` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3306  northwind  SQL > select cuenta_clientes();
++-------------------+
+| cuenta_clientes() |
++-------------------+
+|                93 |
++-------------------+
+1 row in set (0.0198 sec)
+------------------------------------------------
+Funcion 2:  
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Cuenta_clientes`() RETURNS int(11)
+BEGIN
+ 
+ declare cont int;
+  
+select count(*) into cont from customers;
+ 
+
+
+RETURN cont;
+
+END

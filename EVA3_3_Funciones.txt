@@ -1,0 +1,174 @@
+Worbench
+CREATE DEFINER=`root`@`localhost` FUNCTION `Genera_rfc`(nombre text, ap_pat text, ap_mat text, fecha date) 
+RETURNS text CHARSET utf8mb4 
+
+BEGIN
+
+   
+#extraer las primeras dos letras del ap_pat
+ 
+#primer letra del ap_mat
+   
+# primer letra del nombre 
+   
+#HECR19811111
+   
+
+declare letras_pat text;
+   
+declare letras_mat text;
+   
+declare letras_nom text; 
+   
+declare mes int;
+   
+declare dia int;
+   
+declare año int; 
+   
+declare clave text; 
+   
+declare mes_texto text; 
+   
+declare dia_texto text; 
+   
+   
+
+	set letras_pat = left (ap_pat,2); #left es extraer las letras mas a la izquierda
+   
+
+if length(ap_mat) > 0 then 
+        
+	set letras_mat = left(ap_mat, 1);
+   
+  else 
+		
+	set letras_mat = 'X';
+
+end if; 
+     
+    
+	set letras_nom = left(nombre,1);   
+    
+    
+	
+	set año = year (fecha); 
+    
+	set mes = month(fecha );
+    	
+	set dia = dayofmonth(fecha );     
+
+ 
+if mes < 10 then 
+	 
+	set mes_texto = concat('0',mes);
+ 
+  else 
+     
+	set mes_texto = concat(mes);
+
+end if ;
+
+
+if dia < 10 then 
+
+	set dia_texto = concat('0', dia); 
+  
+   else
+     
+	set dia_texto = concat(dia);
+
+end if ; 
+
+     
+	set clave = upper(concat(letras_pat,letras_mat,letras_nom,año, mes_texto, dia_texto)); 
+
+
+RETURN clave;
+
+END
+
+------------------------------------------------------------
+Shell 
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+MySQL JS> \sql
+Switching to SQL mode... Commands end with ;
+
+MySQL SQL> \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 10
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+MySQL [localhost ssl] SQL> show databases;
++--------------------+
+| Database           |
++--------------------+
+| evaluacion_1       |
+| evaluacion_2       |
+| evaluacion_3       |
+| information_schema |
+| mysql              |
+| northwind          |
+| performance_schema |
+| sys                |
+| tecnologico        |
++--------------------+
+9 rows in set (0.0042 sec)
+
+MySQL [localhost ssl] SQL> \ use evaluacion_3
+                        -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near '\ us
+e evaluacion_3' at line 1
+
+MySQL [localhost ssl] SQL>  use evaluacion_3
+Default schema set to `evaluacion_3`.
+Fetching table and column names from `evaluacion_3` for auto-completion... Press
+ ^C to stop.
+
+MySQL [localhost ssl/evaluacion_3] SQL> selec genera_rfc('JESUS','MARTINEZ','GOM
+EZ','2018-11-11');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'sele
+c genera_rfc('JESUS','MARTINEZ','GOMEZ','2018-11-11')' at line 1
+
+MySQL [localhost ssl/evaluacion_3] SQL> select genera_rfc('JESUS','MARTINEZ','GO
+MEZ','2018-11-11');
+ERROR: 1054 (42S22): ClassicResult.fetchOne: Unknown column 'nom' in 'field list
+'
+
+MySQL [localhost ssl/evaluacion_3] SQL> select genera_rfc('JESUS','MARTINEZ','GO
+MEZ','2018-11-11');
+ERROR: 1054 (42S22): ClassicResult.fetchOne: Unknown column 'nom' in 'field list
+'
+
+MySQL [localhost ssl/evaluacion_3] SQL> select genera_rfc('JESUS','MARTINEZ','GO
+MEZ','98-11-11');
+ERROR: 1054 (42S22): ClassicResult.fetchOne: Unknown column 'nom' in 'field list
+'
+
+MySQL [localhost ssl/evaluacion_3] SQL> select genera_rfc('JESUS','MARTINEZ','GO
+MEZ','98-11-11');
++---------------------------------------------------+
+| genera_rfc('JESUS','MARTINEZ','GOMEZ','98-11-11') |
++---------------------------------------------------+
+| MAGJ19981111                                      |
++---------------------------------------------------+
+1 row in set (0.0704 sec)
+
+MySQL [localhost ssl/evaluacion_3] SQL>

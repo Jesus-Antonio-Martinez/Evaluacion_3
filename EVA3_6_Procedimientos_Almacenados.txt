@@ -1,0 +1,269 @@
+
+
+
+call conteo_clientes(@conteo) 
+Select @conteo;
+ Resultado: 93 
+
+
+--------------------------------
+
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+MySQL JS> \sql
+Switching to SQL mode... Commands end with ;
+
+MySQL SQL> \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): \sqlY
+
+Please pick an option out of [Y]es/[N]o/Ne[v]er (default No):
+Save password for 'root@localhost:3306'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 10
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+MySQL [localhost ssl] SQL> show databases;
++--------------------+
+| Database           |
++--------------------+
+| evaluacion_1       |
+| evaluacion_2       |
+| evaluacion_3       |
+| hospital           |
+| information_schema |
+| mysql              |
+| northwind          |
+| performance_schema |
+| sys                |
+| tecnologico        |
++--------------------+
+10 rows in set (0.0031 sec)
+
+MySQL [localhost ssl] SQL> \ use northwind
+                        -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near '\ us
+e northwind' at line 1
+
+MySQL [localhost ssl] SQL> use northwind ;
+Default schema set to `northwind`.
+Fetching table and column names from `northwind` for auto-completion... Press ^C
+ to stop.
+
+MySQL [localhost ssl/northwind] SQL> call agregar_region('En un lugar de lamarch
+a');
+Query OK, 1 row affected (0.2988 sec)
+
+MySQL [localhost ssl/northwind] SQL> select* from region
+                                  -> ;
++----------+----------------------------------------------------+
+| RegionID | RegionDescription                                  |
++----------+----------------------------------------------------+
+|        1 | Eastern                                            |
+|        2 | Westerns                                           |
+|        3 | Northern                                           |
+|        4 | Southern                                           |
+|        5 | En un lugar de lamarcha                            |
++----------+----------------------------------------------------+
+5 rows in set (0.0029 sec)
+
+MySQL [localhost ssl/northwind] SQL> show tables;
++----------------------+
+| Tables_in_northwind  |
++----------------------+
+| account              |
+| categories           |
+| copia_empleados      |
+| customercustomerdemo |
+| customerdemographics |
+| customers            |
+| empleados            |
+| employees            |
+| employeeterritories  |
+| lista_empleados      |
+| lista_empleados_a    |
+| nombre_cliente       |
+| orderdetails         |
+| orders               |
+| pagos_empleados      |
+| personas             |
+| products             |
+| prueba2              |
+| region               |
+| rfc_gringos          |
+| shippers             |
+| suppliers            |
+| temp_customer        |
+| territories          |
+| ventas_producto      |
++----------------------+
+25 rows in set (0.0088 sec)
+
+MySQL [localhost ssl/northwind] SQL> desc empleados;
++------------+----------------------------------+------+-----+---------+--------
+--------+
+| Field      | Type                             | Null | Key | Default | Extra
+        |
++------------+----------------------------------+------+-----+---------+--------
+--------+
+| empleadoid | int(11)                          | NO   | PRI | NULL    | auto_in
+crement |
+| nombre     | varchar(50)                      | YES  |     | NULL    |
+        |
+| apellido   | varchar(50)                      | YES  |     | NULL    |
+        |
+| fecha_nac  | date                             | YES  |     | NULL    |
+        |
+| rfc        | text                             | YES  |     | NULL    |
+        |
+| salario    | double                           | YES  |     | NULL    |
+        |
+| comision   | double                           | YES  |     | NULL    |
+        |
+| nivel      | enum('Administrador','Empleado') | YES  |     | NULL    |
+        |
++------------+----------------------------------+------+-----+---------+--------
+--------+
+8 rows in set (0.0140 sec)
+
+MySQL [localhost ssl/northwind] SQL> select * from empleados;
++------------+--------+-----------+------------+---------------+---------+------
+----+---------------+
+| empleadoid | nombre | apellido  | fecha_nac  | rfc           | salario | comis
+ion | nivel         |
++------------+--------+-----------+------------+---------------+---------+------
+----+---------------+
+|          1 | Ruben  | Chavez    | NULL       | NULL          |   20001 |
+0.2 | NULL          |
+|          2 | Ruben  | Hernandez | NULL       | NULL          |   10000 |
+0.1 | NULL          |
+|          3 | Ruben  | Hernandez | NULL       | NULL          |   30000 |
+0.2 | NULL          |
+|          5 | juan   | perez     | NULL       | NULL          |    2500 |
+0.1 | Administrador |
+|          6 | Juan   | Perez     | 1975-05-05 | PEXJ750505936 |   15000 |
+0.2 | NULL          |
++------------+--------+-----------+------------+---------------+---------+------
+----+---------------+
+5 rows in set (0.1159 sec)
+
+MySQL [localhost ssl/northwind] SQL> show tables;
++----------------------+
+| Tables_in_northwind  |
++----------------------+
+| account              |
+| categories           |
+| copia_empleados      |
+| customercustomerdemo |
+| customerdemographics |
+| customers            |
+| empleados            |
+| employees            |
+| employeeterritories  |
+| lista_empleados      |
+| lista_empleados_a    |
+| nombre_cliente       |
+| orderdetails         |
+| orders               |
+| pagos_empleados      |
+| personas             |
+| products             |
+| prueba2              |
+| region               |
+| rfc_gringos          |
+| shippers             |
+| suppliers            |
+| temp_customer        |
+| territories          |
+| ventas_producto      |
++----------------------+
+25 rows in set (0.0082 sec)
+
+MySQL [localhost ssl/northwind] SQL> select employeeid, firstname,lastname, birt
+hdate, rfc from empleados_rfc;
+ERROR: 1146 (42S02): Table 'northwind.empleados_rfc' doesn't exist
+
+MySQL [localhost ssl/northwind] SQL> select employeeid, firstname,lastname, birt
+hdate, rfc from copia_empleados;
++------------+-----------+-----------+---------------------+------+
+| employeeid | firstname | lastname  | birthdate           | rfc  |
++------------+-----------+-----------+---------------------+------+
+|          1 | Nancy     | Davolio   | 1948-12-08 00:00:00 | NULL |
+|          2 | Andrew    | Fuller    | 1952-02-19 00:00:00 | NULL |
+|          3 | Janet     | Leverling | 1963-08-30 00:00:00 | NULL |
+|          4 | Margaret  | Peacock   | 1937-09-19 00:00:00 | NULL |
+|          5 | Steven    | Buchanan  | 1955-03-04 00:00:00 | NULL |
+|          6 | Michael   | Suyama    | 1963-07-02 00:00:00 | NULL |
+|          7 | Robert    | King      | 1960-05-29 00:00:00 | NULL |
+|          8 | Laura     | Callahan  | 1958-01-09 00:00:00 | NULL |
+|          9 | Anne      | Dodsworth | 1966-01-27 00:00:00 | NULL |
++------------+-----------+-----------+---------------------+------+
+9 rows in set (0.0234 sec)
+
+MySQL [localhost ssl/northwind] SQL>
+
+Worbench
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `consulta_clientes`()
+BEGIN
+
+   
+select customerid, companyname, contactname 
+   
+from customers; 
+
+
+END
+----------------------------------------------------
+CREATE PROCEDURE `conteo_clientes` ( out cont int)
+BEGIN
+ 
+select count(*) into cont 
+ 
+from customers; 
+
+END
+----------------------------------------------
+CREATE PROCEDURE `conteo_clientes_filtro` ( in letra text, out conteo int)
+BEGIN
+ 
+select count(*) into conteo 
+ 
+from customers 
+ 
+where companyname like concat(letra,'%');
+
+END
+--------------------------------------------------
+CREATE PROCEDURE `agregar_region` (in nombre_region text)
+BEGIN
+  
+declare clave int;
+  
+  
+select max(regionid) into clave 
+  
+from region; 
+  
+  
+set clave = clave +1; 
+  
+  
+insert into region values(clave,nombre_region);
+ 
+
+
+END
